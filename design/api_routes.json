@@ -1,0 +1,60 @@
+{
+    "user": {
+            "username": "string",
+            "password": "string (hashed)",
+            "email": "string",
+            "deleted": "boolean (for soft delete)",
+            "user_type": " 'player' | 'critic' ",
+            "favorites": "ObjectID[] references 'game' "
+        },
+        "game": {
+            "name": "string",
+            "description": "string",
+            "release_date": "date (string)",
+            "developer": "ObjectID references 'developer' ",
+            "publisher": "ObjectID references 'publisher' ",
+            "genres": "ObjectID[] references 'genre' ",
+            "sites (dunno how to call this)": {
+                "website": "string (URL of game's website)",
+                "reddit": "string (URL of game's subreddit)",
+                "metacritic": "string (URL of game's metacritic entry"
+            },
+            "platforms": "ObjectID[] references 'platform'",
+            "age_rating": "ObjectID references 'age_rating'",
+            "reviews (calculated, not stored)": {
+                "player_reviews": "number (calculated by amount of player reviews)",
+                "player_score": "number (calculated by player reviews / amount reviews)",
+                "critics_reviews": "number (calculated by amount of critic reviews)",
+                "critics_score": "number (calculated by user reviews / amount reviews)"
+            },
+            "background_image": "string"
+        },
+        "review": {
+            "game": "ObjectID references 'game' ",
+            "user": "ObjectID references 'user' ",
+            "title": "string",
+            "comment": "string",
+            "posting_date": "date",
+            "rating": "number"
+        },
+        "developer": {
+            "name": "string",
+            "games_count": "number"
+        },
+        "publisher": {
+            "name": "string",
+            "games_count": "number"
+        },
+        "platform": {
+            "name": "string",
+            "year_start": "number",
+            "year_end": "number"
+        },
+        "genre": {
+            "name": "string"
+        },
+        "age_rating": {
+            "name": "string",
+            "minimal age": "number"
+        }
+}

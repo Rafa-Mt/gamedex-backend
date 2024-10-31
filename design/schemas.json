@@ -1,0 +1,130 @@
+{
+    "user": {
+        "(GET) /user/:username/": {
+            "body": "none",
+            "response": {
+                "data": {
+                    "username": "string",
+                    "email": "string",
+                    "user_type": "string"
+                }
+            }
+        },
+        "(PUT) /user/:username/email": {
+            "description": "Change email",
+            "body": {
+                "new_email": "string"
+            },
+            "response": {
+                "success": "Email changed succesfully!"
+            }
+        },
+        "(GET) /user/:username/favorites": {
+            "description": "Gets the list of user's favorite games",
+            "body": "none",
+            "response": {
+                "success": "Found Games!",
+                "error": "{error msg}",
+                "data": [
+                    "{games...}"
+                ]
+            }
+        }
+    },
+    "game": {
+        "(GET) /game?:filters": {
+            "description": "Get a list of games based on user given filters",
+            "possible_queries": [
+                "title",
+                "platforms (as titles)",
+                "genres (as titles, kebab-case)",
+                "release_time (range as pair of numbers [years] comma separated)",
+                "rating (range as pair of numbers comma separated, based on inhouse reviews)",
+                "limit (number of results, probably set to 10 by default)",
+                "age_rating (number, minimal age by esrb"
+            ],
+            "body": "none",
+            "response": {
+                "success": "Found Games!",
+                "error": "{error msg}",
+                "data": [
+                    "{games...}"
+                ]
+            },
+            "test": {
+                "request": {
+                    "method": "GET",
+                    "route": "api/game?title=hollow-knight&limit=3",
+                    "body": "none"
+                },
+                "response": {
+                    "success": "Found Games!",
+                    "data": [
+                        {
+                            "_id": "23184762ebs231214",
+                            "name": "Hollow Knight",
+                            "platforms": [
+                                "PC",
+                                "PS4",
+                                "XBOX-ONE"
+                            ],
+                            "release_date": "2017-02-23",
+                            "background_image": "https://media.rawg.io/media/games/4cf/4cfc6b7f1850590a4634b08bfab308ab.jpg",
+                            "genres": [
+                                "Action",
+                                "Platformer",
+                                "Indie"
+                            ],
+                            "age_rating": {
+                                "name": "Everyone 10+",
+                                "minimal_age": 10
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "(GET) /game/details/:_id": {
+            "description": "Get all details of a game",
+            "body": "none",
+            "response": {
+                "success": "Found Game!",
+                "error": "{error msg}",
+                "data": "{games...}"
+            },
+            "test": {
+                "request": {
+                    "method": "GET",
+                    "route": "api/game/details/23184762ebs231214",
+                    "body": "none"
+                },
+                "response": {
+                    "success": "Found Game!",
+                    "data": [
+                        {
+                            "_id": "23184762ebs231214",
+                            "name": "Hollow Knight",
+                            "platforms": [
+                                "PC",
+                                "PS4",
+                                "XBOX-ONE"
+                            ],
+                            "release_date": "2017-02-23",
+                            "background_image": "https://media.rawg.io/media/games/4cf/4cfc6b7f1850590a4634b08bfab308ab.jpg",
+                            "genres": [
+                                "Action",
+                                "Platformer",
+                                "Indie"
+                            ],
+                            "age_rating": {
+                                "name": "Everyone 10+",
+                                "minimal_age": 10
+                            },
+                            "[TODO: Add everything else]": ""
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
