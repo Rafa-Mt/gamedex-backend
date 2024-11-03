@@ -174,7 +174,7 @@ export const login = async (user: {username: string, password: string}) => {
     }
 }
 
-export const auth = async (req: Request, res: Response, next: NextFunction) => {
+export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.header('Authorization')?.replace('Bearer ', '');
         if (!token) throw new Error('Token not found');
@@ -184,7 +184,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
         next();
     }
     catch (error) {
-        console.error(error);
+        // console.error(error);
         res.status(400).json({error: 'User not logged in'});
     }
 }

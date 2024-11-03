@@ -21,11 +21,14 @@
 		"express": "^4.21.0",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.7.1",
-		"morgan": "^1.10.0",
-		"nodemon": "^3.1.7",
 		"resend": "^4.0.0",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.6.2",
 		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"@types/morgan": "^1.9.9",
+		"morgan": "^1.10.0",
+		"nodemon": "^3.1.7"
 	}
 }

@@ -1,130 +1,60 @@
 {
     "user": {
-        "(GET) /user/:username/": {
-            "body": "none",
-            "response": {
-                "data": {
-                    "username": "string",
-                    "email": "string",
-                    "user_type": "string"
-                }
-            }
+            "username": "string",
+            "password": "string (hashed)",
+            "email": "string",
+            "deleted": "boolean (for soft delete)",
+            "user_type": " 'player' | 'critic' ",
+            "favorites": "ObjectID[] references 'game' "
         },
-        "(PUT) /user/:username/email": {
-            "description": "Change email",
-            "body": {
-                "new_email": "string"
+        "game": {
+            "name": "string",
+            "description": "string",
+            "release_date": "date (string)",
+            "developer": "ObjectID references 'developer' ",
+            "publisher": "ObjectID references 'publisher' ",
+            "genres": "ObjectID[] references 'genre' ",
+            "sites (dunno how to call this)": {
+                "website": "string (URL of game's website)",
+                "reddit": "string (URL of game's subreddit)",
+                "metacritic": "string (URL of game's metacritic entry"
             },
-            "response": {
-                "success": "Email changed succesfully!"
-            }
+            "platforms": "ObjectID[] references 'platform'",
+            "age_rating": "ObjectID references 'age_rating'",
+            "reviews (calculated, not stored)": {
+                "player_reviews": "number (calculated by amount of player reviews)",
+                "player_score": "number (calculated by player reviews / amount reviews)",
+                "critics_reviews": "number (calculated by amount of critic reviews)",
+                "critics_score": "number (calculated by user reviews / amount reviews)"
+            },
+            "background_image": "string"
         },
-        "(GET) /user/:username/favorites": {
-            "description": "Gets the list of user's favorite games",
-            "body": "none",
-            "response": {
-                "success": "Found Games!",
-                "error": "{error msg}",
-                "data": [
-                    "{games...}"
-                ]
-            }
+        "review": {
+            "game": "ObjectID references 'game' ",
+            "user": "ObjectID references 'user' ",
+            "title": "string",
+            "comment": "string",
+            "posting_date": "date",
+            "rating": "number"
+        },
+        "developer": {
+            "name": "string",
+            "games_count": "number"
+        },
+        "publisher": {
+            "name": "string",
+            "games_count": "number"
+        },
+        "platform": {
+            "name": "string",
+            "year_start": "number",
+            "year_end": "number"
+        },
+        "genre": {
+            "name": "string"
+        },
+        "age_rating": {
+            "name": "string",
+            "minimal age": "number"
         }
-    },
-    "game": {
-        "(GET) /game?:filters": {
-            "description": "Get a list of games based on user given filters",
-            "possible_queries": [
-                "title",
-                "platforms (as titles)",
-                "genres (as titles, kebab-case)",
-                "release_time (range as pair of numbers [years] comma separated)",
-                "rating (range as pair of numbers comma separated, based on inhouse reviews)",
-                "limit (number of results, probably set to 10 by default)",
-                "age_rating (number, minimal age by esrb"
-            ],
-            "body": "none",
-            "response": {
-                "success": "Found Games!",
-                "error": "{error msg}",
-                "data": [
-                    "{games...}"
-                ]
-            },
-            "test": {
-                "request": {
-                    "method": "GET",
-                    "route": "api/game?title=hollow-knight&limit=3",
-                    "body": "none"
-                },
-                "response": {
-                    "success": "Found Games!",
-                    "data": [
-                        {
-                            "_id": "23184762ebs231214",
-                            "name": "Hollow Knight",
-                            "platforms": [
-                                "PC",
-                                "PS4",
-                                "XBOX-ONE"
-                            ],
-                            "release_date": "2017-02-23",
-                            "background_image": "https://media.rawg.io/media/games/4cf/4cfc6b7f1850590a4634b08bfab308ab.jpg",
-                            "genres": [
-                                "Action",
-                                "Platformer",
-                                "Indie"
-                            ],
-                            "age_rating": {
-                                "name": "Everyone 10+",
-                                "minimal_age": 10
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        "(GET) /game/details/:_id": {
-            "description": "Get all details of a game",
-            "body": "none",
-            "response": {
-                "success": "Found Game!",
-                "error": "{error msg}",
-                "data": "{games...}"
-            },
-            "test": {
-                "request": {
-                    "method": "GET",
-                    "route": "api/game/details/23184762ebs231214",
-                    "body": "none"
-                },
-                "response": {
-                    "success": "Found Game!",
-                    "data": [
-                        {
-                            "_id": "23184762ebs231214",
-                            "name": "Hollow Knight",
-                            "platforms": [
-                                "PC",
-                                "PS4",
-                                "XBOX-ONE"
-                            ],
-                            "release_date": "2017-02-23",
-                            "background_image": "https://media.rawg.io/media/games/4cf/4cfc6b7f1850590a4634b08bfab308ab.jpg",
-                            "genres": [
-                                "Action",
-                                "Platformer",
-                                "Indie"
-                            ],
-                            "age_rating": {
-                                "name": "Everyone 10+",
-                                "minimal_age": 10
-                            },
-                            "[TODO: Add everything else]": ""
-                        }
-                    ]
-                }
-            }
-        }
-    }
 }
