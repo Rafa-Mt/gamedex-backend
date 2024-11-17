@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IPasswordResetToken as IPasswordToken } from "../types";
+import { IPasswordResetToken as IPasswordToken } from "../types/types";
 import bcrypt from 'bcrypt';
 
 export const passwordTokenSchema = new Schema<IPasswordToken>({

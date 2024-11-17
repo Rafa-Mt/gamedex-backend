@@ -6,7 +6,7 @@ import { PasswordToken } from "../models/passwordResetToken";
 import { sign, Secret, verify } from 'jsonwebtoken'
 import {config as dotenv} from 'dotenv'
 import { Request, Response, NextFunction } from "express"; 
-import { CustomRequest } from "../types";
+import { CustomRequest } from "../types/types";
 
 dotenv();
 
@@ -110,27 +110,19 @@ export const sendToken = async (email: string) => {
     }
 }
 
-export const register = async (user: { username: string, email: string, password: string }) => {
-    const { username, email, password } = user;
+export const register = async (user: { username: string, email: string, password: string, user_type: string }) => {
+    const { username, email, password, user_type } = user;
     try {   
 
         const overlappingEmail = await User.findOne({$and: [{ email }, {deleted: false}]});
         
         const overlappingUser = await User.findOne({$and: [{ username }, {deleted: false}]});
 
-        // console.log({overlappingEmail, overlappingUser})
-
-        if (overlappingEmail && overlappingUser) 
-            throw new Error('Username already in use')
-
-        if (overlappingEmail)
-            throw new Error('Email already in use');
-
-        if (overlappingUser)    
-            throw new Error('Username already in use');
+        if (overlappingEmail || overlappingUser ) 
+            throw new Error('Credentials')
         
         const hashedPassword = await hash(password, saltRounds);
-        const newUser = new User({username, email, password: hashedPassword, deleted:false});
+        const newUser = new User({username, email, password: hashedPassword, deleted:false, user_type, favorites: []});
         await newUser.save();
     }
     catch (error) {
@@ -138,7 +130,7 @@ export const register = async (user: { username: string, email: string, password
     }
 }
 
-export const changePassword = async (data: {email: string, newPassword: string, token: string}) => {
+export const changePassword = async (data: {email: string, newPassword: string, token: string, }) => {
     return new Promise( async (resolve, reject) => {
         const { email, newPassword, token } = data;
         try {

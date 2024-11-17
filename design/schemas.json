@@ -8,12 +8,14 @@
             "favorites": "ObjectID[] references 'game' "
         },
         "game": {
+            "api_id": "number",
             "name": "string",
+            "slug": "string",
             "description": "string",
             "release_date": "date (string)",
             "developer": "ObjectID references 'developer' ",
             "publisher": "ObjectID references 'publisher' ",
-            "genres": "ObjectID[] references 'genre' ",
+            "genres": "ObjectID[] references 'genre'",
             "sites (dunno how to call this)": {
                 "website": "string (URL of game's website)",
                 "reddit": "string (URL of game's subreddit)",
@@ -39,22 +41,24 @@
         },
         "developer": {
             "name": "string",
-            "games_count": "number"
+            "slug": "string"
         },
         "publisher": {
             "name": "string",
-            "games_count": "number"
+            "slug": "string"
         },
         "platform": {
             "name": "string",
+            "slug": "string",
             "year_start": "number",
             "year_end": "number"
         },
         "genre": {
-            "name": "string"
+            "name": "string",
+            "slug": "string"
         },
         "age_rating": {
             "name": "string",
-            "minimal age": "number"
+            "slug": "string"
         }
 }

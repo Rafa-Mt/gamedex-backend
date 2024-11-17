@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import { Mail } from '../types';
+import { Mail } from '../types/types';
 import { Resend } from 'resend';
 
 dotenv.config();

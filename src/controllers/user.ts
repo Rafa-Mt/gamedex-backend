@@ -1,5 +1,5 @@
 import { User } from "../models/user";
-import { RouteCallbackParams } from "../types";
+import { RouteCallbackParams } from "../types/types";
 
 export const changeUserEmail = async ({ params, body }: RouteCallbackParams) => {
     const { user_id } = params;

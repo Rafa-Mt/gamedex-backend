@@ -1,7 +1,7 @@
 import express from 'express'
 import { resetRequestSchema } from "../schemas/auth";
 import { buildRouter } from "../services/routeWrapper";
-import { RouteParams } from "../types";
+import { RouteParams } from "../types/types";
 import { changeUserEmail, deleteUser, getUserData } from "../controllers/user";
 
 const router = express.Router();

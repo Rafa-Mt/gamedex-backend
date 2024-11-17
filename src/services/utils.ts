@@ -1,4 +1,4 @@
-import { ErrorResponse } from "../types";
+import { ErrorResponse } from "../types/types";
 
 export class FormatError extends Error {
     constructor(message?: string) {

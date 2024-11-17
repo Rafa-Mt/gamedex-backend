@@ -1,4 +1,4 @@
-import { RouteParams, SuccessResponse } from "../types"
+import { RouteParams, SuccessResponse } from "../types/types"
 import { Request, Response, Router } from "express"
 import { FormatError, getErrorMessage } from "./utils";
 

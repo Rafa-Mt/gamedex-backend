@@ -3,7 +3,8 @@ import { z } from 'zod'
 export const registerSchema = z.object({
     username: z.string().min(3).max(20).refine(s => !s.includes(' '), 'No Spaces!'),
     email: z.string().email().max(35),
-    password: z.string().min(8).max(20).refine(s => !s.includes(' '), 'No Spaces!')
+    password: z.string().min(8).max(20).refine(s => !s.includes(' '), 'No Spaces!'),
+    user_type: z.string().refine((s) => ["player", "critic"].includes(s), 'Invalid user type')
 });
 
 export const loginSchema = z.object({
