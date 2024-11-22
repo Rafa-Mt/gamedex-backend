@@ -2,9 +2,8 @@ import express, { Express, json, Request, Response } from "express";
 import dotenv from "dotenv";
 import { connect } from "mongoose";
 import morgan from 'morgan'
-import authRoutes from './routes/auth'
-import userRoutes from './routes/user'
-import { authMiddleware } from "./services/auth";
+import index from './routes/_index'
+// import { authMiddleware } from "./services/auth";
 
 dotenv.config();
 
@@ -19,14 +18,13 @@ connect(process.env.DB_CONN_STRING as string).then((db) => {
 app.use(json())
 app.use(morgan("dev"))
 
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+app.use('/api', index)
 
-app.get("api/", (req: Request, res: Response) => {  
-    // console.log("Gotten request to '/'")
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ success: "Got request to /" }));
-});
+// app.get("/api", (req: Request, res: Response) => {  
+//     // console.log("Gotten request to '/'")
+//     res.setHeader('Content-Type', 'application/json');
+//     res.send(JSON.stringify({ success: "Got request to /" }));
+// });
 
 app.use((req: Request, res: Response) => {
     res.status(404).json({

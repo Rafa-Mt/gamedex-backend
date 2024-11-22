@@ -15,7 +15,7 @@ const apiPlatformSchema = z.object({
 
 const partialApiGameSearchSchema = z.object({
     platforms: z.array(apiPlatformSchema),
-    released: z.string(),
+    released: z.union([z.string(), z.null()]),
     background_image: z.union([z.string(), z.null()]),
     esrb_rating: z.union([apiDataSchema, z.null()]),
     genres: z.array(apiDataSchema)

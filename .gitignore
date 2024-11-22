@@ -90,3 +90,6 @@ dist/
 *.tsbuildinfo
 
 # IDE / Editor
+
+# Drafts and test
+*_test.md

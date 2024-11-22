@@ -20,12 +20,12 @@ export interface ApiData {
 export interface ApiGameSearch extends ApiData {
     platforms: {platform: ApiData}[]
     // stores: {store: ApiData}[] // Won't be used
-    released: string // Need formatting
+    released: string | null // Need formatting
     // tba: stirng // Won't be used
     background_image: string | null
     // rating: number // Won't be used
     esrb_rating: ApiData | null
-    genres: ApiData[]
+    genres: ApiData[] | null
 }
 
 export interface ApiGameDetails extends ApiGameSearch {

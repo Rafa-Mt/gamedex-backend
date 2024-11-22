@@ -32,5 +32,4 @@ const routes: RouteParams[] = [
 ];
 
 buildRouter(router, routes);
-
 export default router;

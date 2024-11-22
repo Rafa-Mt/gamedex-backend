@@ -1,7 +1,4 @@
 import { config as dotenv } from 'dotenv'
-import xior, { merge, XiorResponseInterceptorConfig } from 'xior';
-import { apiGameSearch } from '../schemas/apiresponses';
-import { developer } from '../models/developer';
 import { z, ZodSchema } from 'zod';
 
 dotenv();
@@ -19,21 +16,28 @@ export const getFromApi = async (route: string, params: Record<string, string | 
         const result = await fetch(fullURL, { headers: { 'Accept': 'Application/JSON' } });
         const json = await result.json()
      
+        // console.log(json)
+
         if (type == 'list') {
             const listSchema = z.object({
-                count: z.number().int(),
-                next: z.union([ z.string(), z.null()]),
-                previous: z.union([z.string(), z.null()]),
-                results: z.union([z.array(schema), z.null()])
+                count: z.number().int().optional(),
+                next: z.union([ z.string(), z.null()]).optional(),
+                previous: z.union([z.string(), z.null()]).optional(),
+                results: z.union([z.array(schema), z.null()]).optional()
             });
-            return listSchema.parse(json) 
+            return listSchema.parse({
+                count: json.count ?? 0,
+                next: json.next ?? '',
+                previous: json.previous ?? '',
+                results: json.results ?? [],
+            }) 
             
         }
         return schema.parse(json)
 
     }
     catch (error) {
-        console.dir(error, { depth: 6 })
+        console.dir(error, { depth: 10 })
         throw new Error(`Failed to get data from api`)
     }
 

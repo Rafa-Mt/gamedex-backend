@@ -15,9 +15,10 @@ export const createRoute = (router: Router, routeBuilder: RouteParams) => {
         try {
             const reqBody = bodySchema ? bodySchema.safeParse(req.body) : null ;
             const params = req.params;
+            const query = req.query;
             if (reqBody && !reqBody.success)
                 throw new FormatError(JSON.stringify(reqBody.error.flatten()));
-            const requestedData = await callback({ body: reqBody ? reqBody.data : null, params });
+            const requestedData = await callback({ body: reqBody ? reqBody.data : null, params, query });
 
             const response: SuccessResponse = {
                 success: successMessage

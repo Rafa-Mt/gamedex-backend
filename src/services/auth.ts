@@ -119,7 +119,7 @@ export const register = async (user: { username: string, email: string, password
         const overlappingUser = await User.findOne({$and: [{ username }, {deleted: false}]});
 
         if (overlappingEmail || overlappingUser ) 
-            throw new Error('Credentials')
+            throw new Error('Invalid Credentials')
         
         const hashedPassword = await hash(password, saltRounds);
         const newUser = new User({username, email, password: hashedPassword, deleted:false, user_type, favorites: []});

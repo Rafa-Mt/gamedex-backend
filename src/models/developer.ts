@@ -7,4 +7,4 @@ export const developerSchema = new Schema<IApiMasterData>({
     slug: { type: String, required: true, unique: true },
 })
 
-export const developer = model<IApiMasterData>('developer', developerSchema);
+export const Developer = model<IApiMasterData>('developer', developerSchema);

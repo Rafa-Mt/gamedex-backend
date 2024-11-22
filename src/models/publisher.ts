@@ -7,4 +7,4 @@ export const publisherSchema = new Schema<IApiMasterData>({
     slug: { type: String, required: true, unique: true },
 })
 
-export const publisher = model<IApiMasterData>('publisher', publisherSchema);
+export const Publisher = model<IApiMasterData>('publisher', publisherSchema);
