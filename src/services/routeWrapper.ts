@@ -29,6 +29,7 @@ export const createRoute = (router: Router, routeBuilder: RouteParams) => {
             res.status(200).json(response);
         }
         catch (err) {
+            console.error(err);
             const error = getErrorMessage(err);
             res.status(500).send(error);
         }

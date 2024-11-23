@@ -82,7 +82,7 @@ export const addFavorite = async ({ params, body }: RouteCallbackParams) => {
     const game = await Game.getByApiId(body.api_id)
     if (!game)
         throw new Game('Game not found');
-    user.favorites.push(game._id as Schema.Types.ObjectId)
+    user.favorites = [...user.favorites, game._id as Schema.Types.ObjectId]
     await user.save()
 }
 
