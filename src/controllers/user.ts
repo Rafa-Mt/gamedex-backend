@@ -80,11 +80,11 @@ export const addFavorite = async ({ params, body }: RouteCallbackParams) => {
         throw new Error('Invalid user');
 
     const game = await Game.getByApiId(body.api_id)
-    console.log({game})
-    if (!game)
-        throw new Error('Game not found');
+    // console.log({game})
+    // if (!game)
+    //     throw new Error('Game not found');
 
-    user.favorites = [...user.favorites, game._id as Schema.Types.ObjectId]
+    user.favorites = [...user.favorites, game?._id as Schema.Types.ObjectId]
     await user.save()
 }
 
@@ -99,10 +99,10 @@ export const removeFavorite = async ({ params, body }: RouteCallbackParams) => {
 
     console.log({body})
     const game = await Game.getByApiId(body.game_api_id)
-    console.log({game})
-    if (!game)
-        throw new Error('Game not found');
-    user.favorites = user.favorites.filter((g) => g !== game._id)
+    // console.log({game})
+    // if (!game)
+    //     throw new Error('Game not found');
+    user.favorites = user.favorites.filter((g) => g !== game?._id)
     await user.save()
 }
 
