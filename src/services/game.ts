@@ -90,7 +90,7 @@ export const getDetailsFromDB = async (api_id: number): Promise<IGame> => {
     const $match = { api_id };
     const $replaceRoot = {
         newRoot: {
-            api_id: "$api_id", 
+            id: "$api_id", 
             title: "$title", 
             imageUrl: "$imageUrl",
             developers: "$developers.name", 
