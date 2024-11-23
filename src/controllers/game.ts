@@ -4,8 +4,8 @@ import * as service from "../services/game";
 import { GameSearchQuery, IGame, IGamePrimitive, RouteCallbackParams, RouteGameSearchQuery } from "../types/types";
 
 export const searchGame = async ({ params, query }: RouteCallbackParams) => {
-    const individualKeys =  [ "search", "releaseYears" ]
-    const groupKeys = [ "platforms", "developers", "publishers", "genres" ]
+    const individualKeys =  [ "search" ]
+    const groupKeys = [ "platforms", "developers", "publishers", "genres", "releaseYears" ]
 
     const filteredQuery = Object.fromEntries(
     Object.entries(query)
