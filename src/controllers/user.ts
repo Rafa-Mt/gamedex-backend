@@ -98,6 +98,7 @@ export const removeFavorite = async ({ params, body }: RouteCallbackParams) => {
 
     console.log({body})
     const game = await Game.getByApiId(body.game_api_id)
+    console.log({game})
     if (!game)
         throw new Error('Game not found');
     user.favorites = user.favorites.filter((g) => g !== game._id)
