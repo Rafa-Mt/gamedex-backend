@@ -48,19 +48,19 @@ export const searchFromDB = async (params: GameSearchQuery, page: number, size: 
                 return { releaseDate: { $gte: new Date(`${v[0]}-01-01`), $lte: new Date(`${v[1]}-12-31`) } }
 
             if (k === 'developers') 
-                return v.map((elem: string | number) => ({$or: [{ 'developers.name': elem }, { 'developers.api_id': Number(elem) }]}))
+                return v.map((elem: string | number) => ({$or: [{ 'developers.name': (elem as string).toLowerCase() }, { 'developers.api_id': Number(elem) }]}))
 
             if (k === 'publishers') 
-                return v.map((elem: string | number) => ({$or: [{ 'publishers.name': elem }, { 'publishers.api_id': Number(elem) }]}))
+                return v.map((elem: string | number) => ({$or: [{ 'publishers.name': (elem as string).toLowerCase() }, { 'publishers.api_id': Number(elem) }]}))
 
             if (k === 'platforms')
                 return v.map((elem: string | number) => ({ 'publishers.api_id': Number(elem) }))
 
             if (k === 'ageRating') 
-                return v.map((elem: string | number) => ({$or: [{ 'ageRatings.name': elem }, { 'ageRatings.api_id': Number(elem) }]}))
+                return v.map((elem: string | number) => ({$or: [{ 'ageRatings.name': (elem as string).toLowerCase() }, { 'ageRatings.api_id': Number(elem) }]}))
 
             if (k === 'genres')
-                return v.map((elem: string | number) => ({$or: [{ 'genres.name': elem }, { 'genres.api_id': Number(elem) }]}))
+                return v.map((elem: string | number) => ({$or: [{ 'genres.name': (elem as string).toLowerCase() }, { 'genres.api_id': Number(elem) }]}))
 
         }).filter((param) => !!param).flat()
     }
