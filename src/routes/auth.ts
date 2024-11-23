@@ -102,6 +102,7 @@ router.post('/check-reset-token', async (req, res) => {
     }
 });
 
+// Terrorist move, we know it.
 router.put("/instant-password-change", authMiddleware, async (req, res) => {
     try {
         const schema = z.object({ 
