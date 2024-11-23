@@ -18,7 +18,7 @@ export const createReview = async (user: unknown, game: unknown, type: string, {
     await review.save();
 }
 
-export const getReviews = async (game: number, page: number, type: string): Promise<ReviewResponse[]> => {
+export const getReviews = async (game: number, page: number, type: string): Promise<[ReviewResponse[], number, number]> => {
     const size = 10;
     const offset = (page-1) * size
     const foundGame = await Game.getByApiId(game)
@@ -33,8 +33,11 @@ export const getReviews = async (game: number, page: number, type: string): Prom
     .populate('user')
     // .sort({'date': 1})
     // .exec()
+    const count = await Review.find({$and: [
+        { game: foundGame._id }, { deleted: false }, { type }
+    ]})
 
-    return foundReviews as unknown as ReviewResponse[];
+    return [foundReviews as unknown as ReviewResponse[], Math.round(count.length / size), foundReviews.length];
 }
 
 export const deleteReview = async () => {

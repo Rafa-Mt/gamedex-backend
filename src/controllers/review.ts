@@ -60,17 +60,21 @@ export const getReviews = async ({ params }: RouteCallbackParams) => {
     if (!['player', 'critic'].includes(type))
         throw new Error('Invalid review type');
 
-    const reviews = await service.getReviews(numGameID, numPage, type);
-    return reviews.map((review) => ({
-        id: review._id,
-        username: review.user.username,
-        date: moment(review.date).format('DD-MM-YYYY'),
-        publication: review.publication,
-        content: review.content,
-        score: review.score,
-        type: review.type,
-        isOwnReview: review.user.username == user.username
-    }))
+    const [reviews, total, resultCount] = await service.getReviews(numGameID, numPage, type);
+    return {
+        resultCount,
+        totalPages: total,
+        comments: reviews.map((review) => ({
+            id: review._id,
+            username: review.user.username,
+            date: moment(review.date).format('DD-MM-YYYY'),
+            publication: review.publication,
+            content: review.content,
+            score: review.score,
+            type: review.type,
+            isOwnReview: review.user.username == user.username
+        }))
+    }
 }
 
 export const deleteReviews = async ({ params }: RouteCallbackParams) => {
