@@ -96,11 +96,13 @@ export const getDetailsFromDB = async (api_id: number): Promise<IGame> => {
             developers: "$developers.name", 
             publishers: "$publishers.name", 
             genres: "$genres.name", 
-            ageRating: "$ageRating.name", 
+            ageRating: "$ageRrating.name", 
             sites: "$sites",
             criticScore: "$criticScore",
             userScore: "$userScore",
-            description: "$description"
+            description: "$description",
+            releaseDate: "$releaseDate",
+            platforms: '$platform.name'
         }
     }
     const aggregate = [ { $match }, ...$lookup, { $replaceRoot } ]
