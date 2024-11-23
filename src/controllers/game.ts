@@ -22,11 +22,19 @@ export const searchGame = async ({ params, query }: RouteCallbackParams) => {
     
     const [inhouseData, inhouseIDs] = await service.searchFromDB(filteredQuery, data.page, pageSize);
 
-    if (inhouseData.length == pageSize) 
-        return inhouseData
+    
     
     // console.log(inhouseIDs)
     const apiResponse = await service.searchFromApi(filteredQuery, pageSize, data.page);
+
+    if (inhouseData.length == pageSize) 
+        return {
+            page: Number(data.page),
+            total_pages: Math.round(apiResponse.count / pageSize),
+            result_count: apiResponse.results.length,
+            results: inhouseData
+        }
+
     const formattedApiData = apiResponse.results.map((game) => ({
         api_id: game.id,
         title: game.name,
