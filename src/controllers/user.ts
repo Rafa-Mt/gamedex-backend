@@ -96,6 +96,7 @@ export const removeFavorite = async ({ params, body }: RouteCallbackParams) => {
     if (!user) 
         throw new Error('Invalid user');
 
+    console.log({body})
     const game = await Game.getByApiId(body.game_api_id)
     if (!game)
         throw new Error('Game not found');
