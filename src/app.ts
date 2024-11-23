@@ -11,6 +11,7 @@ export const app: Express = express();
 export const router = express.Router();
 export const port = process.env.PORT || 3000;
 
+console.log(process.env.DB_CONN_STRING as string)
 connect(process.env.DB_CONN_STRING as string).then((db) => {
     console.log("[server]: Connected to database successfully")
 });
