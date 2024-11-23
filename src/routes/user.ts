@@ -2,7 +2,8 @@ import express from 'express'
 import { resetRequestSchema } from "../schemas/auth";
 import { buildRouter } from "../services/routeWrapper";
 import { RouteParams } from "../types/types";
-import { changeUserEmail, deleteUser, getUserData } from "../controllers/user";
+import { addFavorite, changeUserEmail, deleteUser, getUserData, removeFavorite, setProfilePic } from "../controllers/user";
+import { favoriteAddSchema, profilePicChangeSchema } from '../schemas/models';
 
 const router = express.Router();
 
@@ -28,6 +29,30 @@ const routes: RouteParams[] = [
         returnData: true,
         successMessage: "User found!",
         callback: getUserData
+    },
+    {
+        method: "POST",
+        path: "/:user_id/add-favorite",
+        returnData: false,
+        successMessage: "Game added to favorites!",
+        bodySchema: favoriteAddSchema,
+        callback: addFavorite
+    },
+    {
+        method: "POST",
+        path: "/:user_id/remove-favorite",
+        returnData: false,
+        successMessage: "Game deleted from favorites!",
+        bodySchema: favoriteAddSchema,
+        callback: removeFavorite
+    },
+    {
+        method: "POST",
+        path: "/:user_id/profile-pic",
+        returnData: false,
+        successMessage: "Profile picture changed successfully!",
+        bodySchema: profilePicChangeSchema,
+        callback: setProfilePic
     }
 ];
 

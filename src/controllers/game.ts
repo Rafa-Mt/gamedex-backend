@@ -59,3 +59,38 @@ export const getGameDetails = async ({ params }: RouteCallbackParams) => {
     return game;
     // return Object.keys(game).
 };
+
+export const createHomePage = async ({}: RouteCallbackParams) => {
+    const foundTopRated = await Game.find().sort({'userScore': "descending"});
+    const topRated = foundTopRated.map((game, index) => ({
+        id: game.api_id,
+        ranking: index+1,
+        imageUrl: game.imageUrl,
+        title: game.title,
+        description: game.description,
+        criticScore: game.criticScore,
+        userScore: game.userScore
+    }))
+    const foundFeatured = await Game.find().sort({'criticScore': "descending"});
+    const featured = foundFeatured.map((game, index) => ({
+        id: game.api_id,
+        ranking: index+1,
+        imageUrl: game.imageUrl,
+        title: game.title,
+        description: game.description,
+        criticScore: game.criticScore,
+        userScore: game.userScore
+    }))
+    const foundNewest = await Game.find().sort('descending')
+    const cardGames = foundNewest.map((game, index) => ({
+        id: game.api_id,
+        ranking: index+1,
+        imageUrl: game.imageUrl,
+        title: game.title,
+        description: game.description,
+        criticScore: game.criticScore,
+        userScore: game.userScore
+    }))
+
+    return { topRated, featured, cardGames }
+}

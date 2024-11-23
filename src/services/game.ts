@@ -62,12 +62,12 @@ export const searchFromDB = async (params: GameSearchQuery, page: number, size: 
         }).filter((param) => !!param).flat()
     }
 
+
     const $replaceRoot = {
             newRoot: {
                 api_id: "$api_id", 
                 title: "$title", 
                 imageUrl: "$imageUrl",
-
                 criticScore: "$criticScore",
                 userScore: "$userScore",
                 description: "$description"

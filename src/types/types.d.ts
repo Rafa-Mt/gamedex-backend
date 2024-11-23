@@ -33,8 +33,9 @@ export interface IUser extends Document {
     password: string;
     deleted: boolean;
     user_type: "player" | "critic";
-    favorites: Schema.Types.ObjectId[]
-    level: number
+    favorites: Schema.Types.ObjectId[];
+    level: number;
+    profile_pic: string;
 }
 
 export interface IPasswordResetToken extends Document {

@@ -12,5 +12,5 @@ export default router;
 router.use('/auth', authRoutes);
 router.use('/user', authMiddleware, userRoutes);
 router.use('/game', authMiddleware, gameRoutes);
-router.use('/review', reviewRoutes)
-router.use('/misc', miscRoutes)
+router.use('/review', authMiddleware, reviewRoutes)
+router.use('/misc',authMiddleware, miscRoutes)

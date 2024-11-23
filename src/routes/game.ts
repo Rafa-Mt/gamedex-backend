@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { RouteParams } from "../types/types";
-import { getGameDetails, searchGame } from "../controllers/game";
+import { createHomePage, getGameDetails, searchGame } from "../controllers/game";
 import { buildRouter } from "../services/routeWrapper";
 
 const router = Router();
@@ -19,6 +19,13 @@ const routes: RouteParams[] = [
         returnData: true,
         successMessage: "Found games!",
         callback: searchGame
+    },
+    {
+        method: "GET",
+        path: "/home",
+        returnData: true,
+        successMessage: "Home page created!",
+        callback: createHomePage
     }
 ]
 

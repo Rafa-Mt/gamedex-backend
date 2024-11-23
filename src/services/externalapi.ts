@@ -9,7 +9,11 @@ export const getFromApi = async (route: string, params: Record<string, string | 
         const baseURL = "https://api.rawg.io/api";
         const formattedParams = new URLSearchParams({
             key: process.env.RAWG_API_KEY as string,
-            ...Object.fromEntries(Object.entries(params).map(([key, value]) => [key, value.toString()]))
+            ...Object.fromEntries(
+                Object.entries(params).map(
+                    ([key, value]) => [key, value.toString()]
+                )
+            )
         })
         
         const fullURL = `${baseURL}${route}?${formattedParams}`

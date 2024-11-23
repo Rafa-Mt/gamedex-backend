@@ -10,7 +10,8 @@ export const userSchema = new Schema<IUser>(
         deleted: { type: Boolean, required: true },
         user_type: { type: String, required: true },
         favorites: [{ type: Schema.Types.ObjectId, ref: 'game' }],
-        level: { type: Number, default: 0 }
+        level: { type: Number, default: 0 },
+        profile_pic: { type: String, default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" }
     },
     {
         statics: {
