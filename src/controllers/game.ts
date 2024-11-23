@@ -58,6 +58,10 @@ export const getGameDetails = async ({ params }: RouteCallbackParams) => {
     const foundFromApi = await service.getGameDetailsFromApi(id);
     const game = await Game.createFromApiResponse(foundFromApi);
     console.log(game)
+    return Object.entries(game).map(([k, v]) => {
+        if (k === 'releaseDate') return [k, moment(v)]
+        return [k, v]
+    })
     return {...game, releaseDate: moment(game.releaseDate)};
     // return Object.keys(game).
 };
