@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Game } from "../models/game";
 import * as service from "../services/game";
 import { GameSearchQuery, IGame, IGamePrimitive, RouteCallbackParams, RouteGameSearchQuery } from "../types/types";
@@ -56,7 +57,8 @@ export const getGameDetails = async ({ params }: RouteCallbackParams) => {
     
     const foundFromApi = await service.getGameDetailsFromApi(id);
     const game = await Game.createFromApiResponse(foundFromApi);
-    return game;
+    console.log(game)
+    return {...game, releaseDate: moment(game.releaseDate)};
     // return Object.keys(game).
 };
 
