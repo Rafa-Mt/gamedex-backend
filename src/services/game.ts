@@ -57,7 +57,10 @@ export const searchFromDB = async (params: GameSearchQuery, page: number, size: 
                 return v.map((elem: string | number) => ({ 'publishers.api_id': Number(elem) }))
 
             if (k === 'ageRating') 
-                return v.map((elem: string | number) => ({$or: [{ 'ageRating.name': elem }, { 'ageRating.api_id': Number(elem) }]}))
+                return v.map((elem: string | number) => ({$or: [{ 'ageRatings.name': elem }, { 'ageRatings.api_id': Number(elem) }]}))
+
+            if (k === 'genres')
+                return v.map((elem: string | number) => ({$or: [{ 'genres.name': elem }, { 'genres.api_id': Number(elem) }]}))
 
         }).filter((param) => !!param).flat()
     }
