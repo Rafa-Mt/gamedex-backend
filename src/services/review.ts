@@ -22,11 +22,11 @@ export const getReviews = async (game: number, page: number, type: string): Prom
     const size = 10;
     const offset = (page-1) * size
     const foundGame = await Game.getByApiId(game)
-    if (!foundGame)
-        throw new Error('Game not found');
+    // if (!foundGame)
+    //     throw new Error('Game not found');
 
     const foundReviews = await Review.find({$and: [
-        { game: foundGame._id }, { deleted: false }, { type }
+        { game: foundGame?._id }, { deleted: false }, { type }
     ]})
     .limit(size)
     .skip(offset)
@@ -34,7 +34,7 @@ export const getReviews = async (game: number, page: number, type: string): Prom
     // .sort({'date': 1})
     // .exec()
     const count = await Review.find({$and: [
-        { game: foundGame._id }, { deleted: false }, { type }
+        { game: foundGame?._id }, { deleted: false }, { type }
     ]})
 
     return [foundReviews as unknown as ReviewResponse[], Math.round(count.length / size), foundReviews.length];
