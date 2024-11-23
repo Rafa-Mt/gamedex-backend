@@ -4,6 +4,8 @@ import { ApiGameDetails, ApiGameSearch, ApiResult, ApiData } from "../types/apit
 import { GameSearchQuery, IGame } from "../types/types"
 import { Game } from "../models/game";
 import { resourceLimits } from "worker_threads";
+import ISODate from 'mongoose'
+import moment from "moment";
 
 export const searchFromApi = async (query: GameSearchQuery, page_size: number = 10, page: number = 1,): Promise<ApiResult<ApiGameSearch>> => {
     // console.log(query)
@@ -45,7 +47,7 @@ export const searchFromDB = async (params: GameSearchQuery, page: number, size: 
                 return { $or: [{title: { $regex: v, $options: 'i' }}, {slug: { $regex: v, $options: 'i' }}] }
 
             if (k === 'releaseYears')
-                return { releaseDate: { $gte: new Date(`${v[0]}-01-01`).getTime(), $lte: new Date(`${v[1]}-12-31`).getTime() } }
+                return { releaseDate: { $gte: moment(`${v[0]}-01-01`).toDate(), $lte: moment(`${v[1]}-12-31`).toDate() } }
 
             if (k === 'developers') 
                 return v.map((elem: string | number) => ({$or: [{ 'developers.name': {$regex: elem, $options: 'i'} }, { 'developers.api_id': Number(elem) }]}))
