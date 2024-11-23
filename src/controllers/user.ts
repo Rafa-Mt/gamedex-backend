@@ -80,6 +80,7 @@ export const addFavorite = async ({ params, body }: RouteCallbackParams) => {
         throw new Error('Invalid user');
 
     const game = await Game.getByApiId(body.api_id)
+    console.log({game})
     if (!game)
         throw new Error('Game not found');
 
