@@ -81,7 +81,8 @@ export const addFavorite = async ({ params, body }: RouteCallbackParams) => {
 
     const game = await Game.getByApiId(body.api_id)
     if (!game)
-        throw new Game('Game not found');
+        throw new Error('Game not found');
+
     user.favorites = [...user.favorites, game._id as Schema.Types.ObjectId]
     await user.save()
 }
@@ -97,7 +98,7 @@ export const removeFavorite = async ({ params, body }: RouteCallbackParams) => {
 
     const game = await Game.getByApiId(body.api_id)
     if (!game)
-        throw new Game('Game not found');
+        throw new Error('Game not found');
     user.favorites = user.favorites.filter((g) => g !== game._id)
     await user.save()
 }
