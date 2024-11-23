@@ -29,7 +29,7 @@ export const searchFromApi = async (query: GameSearchQuery, page_size: number = 
     } 
 }
 
-const $lookup = [ "platforms", "developers", "publishers", "genres" ].map((k) => ({
+const $lookup = [ "platforms", "developers", "publishers", "genres", 'ageRating' ].map((k) => ({
     $lookup: {
         from: k,
         localField: k,
