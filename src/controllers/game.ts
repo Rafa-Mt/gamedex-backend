@@ -11,7 +11,7 @@ export const searchGame = async ({ params, query }: RouteCallbackParams) => {
     Object.entries(query)
     .filter(([k, v]) => [...individualKeys, ...groupKeys].includes(k))
     .map(([k, v]) => {
-        return groupKeys.includes(k) ? [ k, (v as string).split(',') ] : [ k, v ]
+        return groupKeys.includes(k) ? [ k, (v as string).replace(' ', ",").split(',') ] : [ k, v ]
     })) as GameSearchQuery
 
     // return {original: query, filtered: filteredQuery};
