@@ -111,3 +111,12 @@ export const setProfilePic = async ({ params, body }: RouteCallbackParams) => {
     user.profile_pic = body.url;
     await user.save();
 }
+
+export const getFavorites = async ({params}: RouteCallbackParams) => {
+    const _id = params.user_id;
+    const user = await User.findById(_id).populate(['favorites'])
+    if (!user) 
+        throw new Error('Invalid user');
+
+    return user.favorites;
+}
