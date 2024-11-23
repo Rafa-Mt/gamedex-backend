@@ -5,7 +5,7 @@ import { apiDataSchema } from "../schemas/apiresponses"
 import { getFromApi } from "../services/externalapi"
 import { IApiMasterData, RouteCallbackParams } from "../types/types"
 
-export const getPlatforms = async () => {
+export const getPlatforms = async ({}: RouteCallbackParams) => {
     // const apiGenres1 = await getFromApi('/platforms', { limit: 30, page: 1 }, apiDataSchema, "list");
     // const apiGenres2 = await getFromApi('/platforms', { limit: 30, page: 2 }, apiDataSchema, "list");
 
@@ -32,6 +32,6 @@ export const getGenres = async ({  }: RouteCallbackParams) => {
     return await Genre.find();
 }
 
-export const getAgeRatings = async () => {
+export const getAgeRatings = async ({}: RouteCallbackParams) => {
     return await AgeRating.find();
 }
