@@ -96,7 +96,7 @@ export const getDetailsFromDB = async (api_id: number): Promise<IGame> => {
             developers: "$developers.name", 
             publishers: "$publishers.name", 
             genres: "$genres.name", 
-            ageRating: "$ageRrating.name", 
+            ageRating: "$ageRating.name", 
             sites: "$sites",
             criticScore: "$criticScore",
             userScore: "$userScore",
