@@ -15,8 +15,8 @@ export const getPlatforms = async ({}: RouteCallbackParams) => {
     //     genre.name = result.name as string;
     //     genre.slug = result.slug as string;
     //     genre.save();
-    // })
-    return await Platform.find();
+    // }){
+    return await Platform.find({});
 }
 
 export const getGenres = async ({  }: RouteCallbackParams) => {
@@ -29,7 +29,7 @@ export const getGenres = async ({  }: RouteCallbackParams) => {
     //     genre.slug = result.slug as string;
     //     genre.save();
     // })
-    return await Genre.find();
+    return await Genre.find({});
 }
 
 export const getAgeRatings = async ({}: RouteCallbackParams) => {
