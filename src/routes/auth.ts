@@ -1,8 +1,11 @@
 import { loginSchema, passwordResetSchema, registerSchema, resetRequestSchema, tokenCheckSchema } from "../schemas/auth";
 import { Router } from "express";
-import { changePassword, checkToken, login, register, sendToken } from "../services/auth";
+import { authMiddleware, changePassword, checkToken, login, register, sendToken } from "../services/auth";
 import { FormatError, getErrorMessage } from "../services/utils";
 import { config as dotenv } from 'dotenv'
+import {z} from 'zod'
+import { User } from "../models/user";
+import { hash } from "bcrypt";
 
 const router = Router();
 export default router;
@@ -98,3 +101,29 @@ router.post('/check-reset-token', async (req, res) => {
         return
     }
 });
+
+router.put("/instant-password-change", authMiddleware, async (req, res) => {
+    try {
+        const schema = z.object({ 
+            email: z.string().email(),
+            newPassword: z.string().min(8) 
+        })
+        const body = schema.safeParse(req.body);
+
+        if (!body.success)
+            throw new Error("Invalid data");
+
+        const { email, newPassword } = body.data;
+
+        const userToChange = await User.findOne({ $and: [{ email }, {deleted: false}]});
+        if (!userToChange) throw new Error('User not found'); 
+
+        const hashedPassword = await hash(newPassword, 8);
+        userToChange.password = hashedPassword;
+        await userToChange.save();
+        res.status(200).json({sucess: "Password changed succesfully"})
+    }
+    catch( error ) {
+        res.status(500).json({error: "Failed to change password"})
+    }
+})
