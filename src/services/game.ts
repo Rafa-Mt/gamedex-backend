@@ -45,7 +45,7 @@ export const searchFromDB = async (params: GameSearchQuery, page: number, size: 
                 return { $or: [{title: { $regex: v, $options: 'i' }}, {slug: { $regex: v, $options: 'i' }}] }
 
             if (k === 'releaseYears')
-                return { releaseDate: { $gte: new Date(`${v[0]}-01-01`), $lte: new Date(`${v[1]}-12-31`) } }
+                return { releaseDate: { $gte: new Date(`${v[0]}-01-01`).getTime(), $lte: new Date(`${v[1]}-12-31`).getTime() } }
 
             if (k === 'developers') 
                 return v.map((elem: string | number) => ({$or: [{ 'developers.name': {$regex: elem, $options: 'i'} }, { 'developers.api_id': Number(elem) }]}))
