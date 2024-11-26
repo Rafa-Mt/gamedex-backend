@@ -13,7 +13,7 @@ const recalcScore = async (game: IGame, type: string) => {
 
     console.log('Final scores: ', finalScores)
 
-    if (!finalScores) {
+    if (!finalScores || finalScores.length === 0) {
         if (type === "player")
             game.userScore = 0
         else
