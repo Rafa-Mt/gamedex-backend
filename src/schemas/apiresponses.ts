@@ -29,6 +29,7 @@ const partialApiGameDetailsSchema = z.object({
     developers: z.array(apiDataSchema),
     genres: z.array(apiDataSchema),
     publishers: z.array(apiDataSchema),
+    description_raw: z.union([z.string(), z.null()]).optional()
 })
 
 export const apiGameSearch: z.ZodSchema<ApiGameSearch> = z.intersection(apiDataSchema, partialApiGameSearchSchema);

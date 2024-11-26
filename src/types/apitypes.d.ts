@@ -30,6 +30,7 @@ export interface ApiGameSearch extends ApiData {
 
 export interface ApiGameDetails extends ApiGameSearch {
     description: string
+    description_raw?: string | null
     website: string
     reddit_url: string
     metacritic_url: string

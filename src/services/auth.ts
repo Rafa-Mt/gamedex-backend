@@ -158,7 +158,7 @@ export const login = async (user: {username: string, password: string}) => {
         const userCheck = await checkPassword(user);
         const token = sign({_id: userCheck._id?.toString(), username: userCheck.username, email: userCheck.email}, process.env.JWT_SECRET_KEY as Secret, {expiresIn: '5 days'});
 
-        const {_id, username, email} = userCheck;
+        const { _id, username, email } = userCheck;
         return { user: { _id, username, email }, token }
     }
     catch (error) {
