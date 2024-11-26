@@ -26,6 +26,7 @@ export const userSchema = new Schema<IUser>(
                 const level = 5 * (Math.pow(exp, 1/3));
                 console.log(`User leveled up (${this.level} -> ${level})`);
                 this.level = level;
+                await this.save()
             }
         }
     }
