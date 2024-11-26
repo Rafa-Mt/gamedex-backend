@@ -23,7 +23,16 @@ const recalcScore = async (game: IGame, type: string) => {
         return
     }
 
-    const newScore  =  (finalScores && finalScores.length <= 1) ? finalScores[0].score : finalScores.map((doc) => doc.score).reduce((total, actual) => actual+total) / finalScores.length;
+    if (finalScores.length === 1) {
+        if (type === "player")
+            game.userScore = finalScores[0].score
+        else
+            game.criticScore = finalScores[0].score
+
+        await game.save();
+    }
+
+    const newScore = finalScores.map((doc) => doc.score).reduce((total, actual) => actual+total) / finalScores.length;
 
     console.log('New score: ', newScore)
 
