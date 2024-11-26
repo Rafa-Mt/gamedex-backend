@@ -18,6 +18,9 @@ const recalcScore = async (game: IGame, type: string) => {
             game.userScore = 0
         else
             game.criticScore = 0
+
+        await game.save();
+        return
     }
 
     const newScore  =  (finalScores && finalScores.length <= 1) ? finalScores[0].score : finalScores.map((doc) => doc.score).reduce((total, actual) => actual+total) / finalScores.length;
