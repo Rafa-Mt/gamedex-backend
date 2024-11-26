@@ -2,7 +2,7 @@ import { IGame, RouteCallbackParams } from "../types/types";
 import * as service from '../services/review'
 import { IUserWithMethods, User } from "../models/user";
 import moment from "moment";
-import { Review } from "../models/review";
+import { Review, reviewSchema } from "../models/review";
 import { Game } from "../models/game";
 
 const recalcScore = async (game: IGame, type: string) => {
@@ -84,11 +84,22 @@ export const deleteReviews = async ({ params }: RouteCallbackParams) => {
     if (!numGameID || isNaN(numGameID) || !user_id)
         throw new Error("Invalid params")
 
+    const foundUser = await User.findById(user_id)
+    if (!foundUser)
+        throw new Error('User not found')
+    await (foundUser as unknown as IUserWithMethods).levelUp();
+
     const foundGame = await Game.getByApiId(numGameID)
     if (!foundGame)
         throw new Error("Game not found")
     
-    await Review.findOneAndUpdate({ $and: [
+    const changedReview = await Review.findOneAndUpdate({ $and: [
         { user: user_id }, { game: foundGame._id }, { deleted: false }
     ]}, { deleted: true })
+
+    if (!changedReview)
+        throw new Error('Failed to delete review')
+
+    await recalcScore(foundGame, changedReview.type);
+ 
 }

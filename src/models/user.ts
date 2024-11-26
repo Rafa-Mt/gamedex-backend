@@ -24,7 +24,7 @@ export const userSchema = new Schema<IUser>(
                 const comments = await Review.getFromUser(this._id as string);
                 const exp = comments ? comments.length : 0;
                 const level = 5 * (Math.pow(exp, 1/3));
-                // console.log(level);
+                console.log(`User leveled up (${this.level} -> ${level})`);
                 this.level = level;
             }
         }
