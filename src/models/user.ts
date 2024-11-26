@@ -21,7 +21,7 @@ export const userSchema = new Schema<IUser>(
         },
         methods: {
             levelUp: async function (): Promise<void> {
-                const comments = await Review.getFromUser(this._id as string);
+                const comments = await Review.find({ $and: [{ user: this._id }, { deleted: false }] });
                 const exp = comments ? comments.length : 0;
                 const level = 5 * (Math.pow(exp, 1/3));
                 console.log(`User leveled up (${this.level} -> ${level})`);
